@@ -1,21 +1,15 @@
-document.getElementById('agendamentoForm').addEventListener('submit', function(event) {
+document.getElementById("form-agendamento").addEventListener("submit", function(event) {
     event.preventDefault();
-
-    const nome = document.getElementById('nome').value;
-    const data = document.getElementById('data').value;
-
-    fetch('http://localhost:5000/agendamento', {
+    const data = {
+        data: document.getElementById("data").value,
+        hora: document.getElementById("hora").value,
+    };
+    fetch('/agendamento', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ nome: nome, data: data })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
     })
     .then(response => response.json())
-    .then(data => {
-        alert(data.message);
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-    });
+    .then(data => console.log("Sucesso:", data))
+    .catch(error => console.error("Erro:", error));
 });
